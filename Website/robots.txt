@@ -1,0 +1,5 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://pet-life.co/sitemap.xml
+
