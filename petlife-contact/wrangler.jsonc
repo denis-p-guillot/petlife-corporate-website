@@ -1,0 +1,57 @@
+/**
+ * For more details on how to configure Wrangler, refer to:
+ * https://developers.cloudflare.com/workers/wrangler/configuration/
+ */
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "petlife-contact",
+	"main": "src/index.ts",
+	"compatibility_date": "2026-03-01",
+	"compatibility_flags": [
+		"nodejs_compat",
+		"global_fetch_strictly_public"
+	],
+	"assets": {
+		// The path to the directory containing the `index.html` file to be served at `/`
+		"directory": "./public"
+	},
+	// Environment variables. Keep secrets (like MAILGUN_API_KEY) in `wrangler secret`.
+	"vars": {
+		"MAILGUN_DOMAIN": "otp.pet-life.co",
+		"MAILGUN_FROM": "Pet Life Website <no-reply@otp.pet-life.co>",
+		"MAILGUN_TO": "denis.digitek@gmail.com,info@pet-life.co"
+	},
+	/**
+	 * Attach this worker to pet-life.co so `/api/contact` is served
+	 * from the main marketing site.
+	 */
+	"routes": [
+		{
+			"pattern": "pet-life.co/api/contact",
+			"zone_name": "pet-life.co"
+		},
+		{
+			"pattern": "www.pet-life.co/api/contact",
+			"zone_name": "pet-life.co"
+		}
+	],
+	"observability": {
+		"enabled": true
+	}
+	/**
+	 * Smart Placement
+	 * https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement
+	 */
+	// "placement": {  "mode": "smart" }
+	/**
+	 * Bindings
+	 * Bindings allow your Worker to interact with resources on the Cloudflare Developer Platform, including
+	 * databases, object storage, AI inference, real-time communication and more.
+	 * https://developers.cloudflare.com/workers/runtime-apis/bindings/
+	 */
+	/**
+	 * Service Bindings (communicate between multiple Workers)
+	 * https://developers.cloudflare.com/workers/wrangler/configuration/#service-bindings
+	 */
+	// "services": [  {   "binding": "MY_SERVICE",   "service": "my-service"  } ]
+}

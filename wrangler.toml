@@ -1,0 +1,6 @@
+# Cloudflare Pages – Pet Life (https://pet-life.co)
+# From repo root: wrangler pages deploy ./Website --project-name=pet-life
+# From Website/:  wrangler pages deploy . --project-name=pet-life
+
+name = "pet-life"
+pages_build_output_dir = "./Website"

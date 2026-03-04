@@ -1,0 +1,1616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Pet Life – Company Profile</title>
+  <style>
+    :root {
+      --petlife-brown: #743b19;
+      --petlife-tan: #b58050;
+      --petlife-teal: #52a29c;
+      --petlife-cream: #faf6f2;
+      --petlife-cream-dark: #efe8e2;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: var(--petlife-brown);
+      background: var(--petlife-cream);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-text-size-adjust: 100%;
+    }
+    img { max-width: 100%; height: auto; display: block; }
+
+    /* ----- Header / Navigator ----- */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(250, 246, 242, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(116, 59, 25, 0.08);
+      transition: padding 0.2s ease;
+    }
+    .header-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0.75rem 1.5rem;
+      padding-left: max(1.5rem, env(safe-area-inset-left));
+      padding-right: max(1.5rem, env(safe-area-inset-right));
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .logo-link {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .logo-link img {
+      height: 80px;
+      width: auto;
+      max-height: 20vw;
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+    .nav a {
+      color: var(--petlife-brown);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+    .nav a:hover { color: var(--petlife-teal); }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .btn-ghost {
+      color: var(--petlife-brown);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 0.4rem 0.8rem;
+    }
+    .btn-ghost:hover { color: var(--petlife-teal); }
+    .lang-select {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.45rem 0.95rem;
+      border-radius: 999px;
+      border: none;
+      background: var(--petlife-teal);
+      color: #fff;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .lang-select:hover { background: rgba(82, 162, 156, 0.25); }
+    .lang-select svg { width: 14px; height: 14px; flex-shrink: 0; }
+    .lang-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid var(--petlife-teal);
+      background: #fff;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .lang-toggle-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 0.32rem 0.55rem;
+      min-width: 2.2rem;
+      text-align: center;
+      border-radius: 999px;
+      color: #7f8a92;
+      transition: background 0.2s, color 0.2s;
+    }
+    .lang-toggle[data-lang="en"] .lang-toggle-label--en,
+    .lang-toggle[data-lang="id"] .lang-toggle-label--id {
+      background: var(--petlife-teal);
+      color: #fff;
+    }
+    .lang-toggle[data-lang="en"] .lang-toggle-label--id,
+    .lang-toggle[data-lang="id"] .lang-toggle-label--en {
+      background: transparent;
+      color: #7f8a92;
+    }
+    .lang-dropdown {
+      position: relative;
+    }
+    .lang-dropdown .lang-options {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      margin-top: 0.25rem;
+      background: #fff;
+      border: 1px solid rgba(82, 162, 156, 0.3);
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      min-width: 100%;
+      z-index: 50;
+      overflow: hidden;
+    }
+    .lang-dropdown.open .lang-options { display: block; }
+    .lang-dropdown .lang-option {
+      display: block;
+      width: 100%;
+      padding: 0.5rem 0.75rem;
+      border: none;
+      background: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--petlife-brown);
+      cursor: pointer;
+      font-family: inherit;
+      text-align: left;
+    }
+    .lang-dropdown .lang-option:hover { background: rgba(82, 162, 156, 0.1); }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: transparent;
+      color: var(--petlife-teal);
+      border: 1px solid var(--petlife-teal);
+      padding: 0.45rem 1.4rem;
+      border-radius: 999px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-family: inherit;
+    }
+    .btn-primary:hover { background: rgba(82, 162, 156, 0.08); }
+    .btn-primary-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+    .btn-primary-icon svg {
+      width: 100%;
+      height: 100%;
+    }
+    .btn-primary-label {
+      white-space: nowrap;
+    }
+
+    /* Mobile menu toggle */
+    .menu-toggle {
+      display: none;
+      background: rgba(250, 246, 242, 0.9);
+      border: 1px solid rgba(116, 59, 25, 0.18);
+      border-radius: 999px;
+      cursor: pointer;
+      padding: 0.4rem 0.6rem;
+      min-width: 40px;
+      min-height: 36px;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .menu-toggle span {
+      display: block;
+      width: 18px;
+      height: 2px;
+      background: var(--petlife-brown);
+      margin: 3px 0;
+      border-radius: 999px;
+      transition: transform 0.3s, opacity 0.3s, background-color 0.2s;
+    }
+    .menu-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .menu-toggle.open span:nth-child(2) { opacity: 0; }
+    .menu-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    .menu-toggle:hover {
+      background: rgba(250, 246, 242, 1);
+      border-color: rgba(116, 59, 25, 0.3);
+      box-shadow: 0 2px 6px rgba(116, 59, 25, 0.18);
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle { display: flex; align-items: center; justify-content: center; }
+
+      /* Keep language toggle + My Pet Life visible in the top bar,
+         only collapse the main navigation into the mobile menu. */
+      .nav {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--petlife-cream);
+        border-bottom: 1px solid rgba(116, 59, 25, 0.1);
+        padding: 1rem 1.5rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+      }
+      .header.open .nav {
+        display: flex;
+      }
+      .header-inner {
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        gap: 0.75rem;
+      }
+
+      /* In mobile, show My Pet Life as an icon-only button next to the language toggle
+         to keep proportions aligned with the toggle switch, and pin actions to the top right. */
+      .menu-toggle {
+        order: 1;
+        margin-left: 0.5rem;
+      }
+      .header-actions {
+        order: 2;
+        margin-left: auto;
+      }
+      .header-actions .btn-primary {
+        padding: 0.25rem 0.6rem;
+        border-radius: 999px;
+      }
+      .header-actions .btn-primary-label {
+        display: none;
+      }
+    }
+
+    /* ----- Hero / Welcome Banner (full width, entire image visible) ----- */
+    /* Banner image aspect ratio: 1440 × 415 */
+    .welcome {
+      position: relative;
+      width: 100%;
+      max-width: none;
+      margin: 56px 0 0;
+      padding: 0;
+      aspect-ratio: 1440 / 415;
+      overflow: hidden;
+    }
+    .welcome-banner {
+      position: absolute;
+      inset: 0;
+      background: url("Company Profile Site Banner.jpg") center no-repeat;
+      background-size: contain;
+    }
+
+    /* ----- Open Letter Section (full page) ----- */
+    .open-letter-section {
+      width: 100%;
+      max-width: none;
+      min-height: 100vh;
+      background: #fff url("Graphic/Website graphics-01.svg") center no-repeat;
+      background-size: cover;
+      position: relative;
+      overflow: hidden;
+      padding: 4rem 1.5rem;
+      padding-bottom: max(4rem, env(safe-area-inset-bottom));
+      margin-left: 0;
+      margin-right: 0;
+    }
+    .open-letter-section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.85);
+      pointer-events: none;
+    }
+    .open-letter-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .open-letter-section h2 {
+      font-size: clamp(1.75rem, 3vw, 2.25rem);
+      font-weight: 700;
+      color: var(--petlife-brown);
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    .open-letter-section .letter-body {
+      color: #333;
+      font-size: 1rem;
+      line-height: 1.75;
+      margin-bottom: 2rem;
+    }
+    .open-letter-section .letter-body p {
+      margin-bottom: 1rem;
+    }
+    .btn-read-more {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: var(--petlife-tan);
+      color: white;
+      border: none;
+      padding: 0.65rem 1.5rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: inherit;
+      text-decoration: none;
+      margin: 0 auto 1rem;
+      box-shadow: 0 2px 8px rgba(116, 59, 25, 0.15);
+    }
+    .btn-read-more:hover { filter: brightness(1.08); }
+    .btn-read-more svg { width: 18px; height: 18px; }
+    .open-letter-cta { text-align: center; }
+
+    /* ----- Section common ----- */
+    section {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 4rem 1.5rem;
+    }
+    .section-title {
+      font-size: 1.75rem;
+      color: var(--petlife-brown);
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    /* ----- About Us ----- */
+    .about {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    .about-image {
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(116, 59, 25, 0.1);
+    }
+    .about-text h2 { font-size: 1.5rem; margin-bottom: 1rem; color: var(--petlife-brown); }
+    .about-text p { color: var(--petlife-tan); margin-bottom: 1rem; }
+    @media (max-width: 768px) {
+      .about { grid-template-columns: 1fr; }
+    }
+
+    /* ----- Mission & Vision (full width, brown background) ----- */
+    .mission-vision-section {
+      width: 100%;
+      max-width: none;
+      margin: 0;
+      padding: 4rem 1.5rem;
+      background: #8B5F47;
+    }
+    .mission-vision-section .section-title {
+      color: rgba(255, 255, 255, 0.95);
+      margin-bottom: 2rem;
+    }
+    .mission-vision {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .mission-vision-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+    }
+    .mission-vision-card {
+      background: #fff;
+      padding: 2.5rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+    }
+    .mission-vision-card h3 {
+      color: #C18F58;
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .mission-vision-card p {
+      color: #333;
+      font-size: 0.95rem;
+      line-height: 1.65;
+    }
+    @media (max-width: 768px) {
+      .mission-vision-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ----- Services (5-slide slider) ----- */
+    .services-section {
+      width: 100%;
+      max-width: none;
+      margin: 0;
+      padding: 2rem 2rem 3rem;
+      overflow: hidden;
+      background: #fff url("Graphic/Website graphics-01.svg") center no-repeat;
+      background-size: cover;
+      position: relative;
+    }
+    .services-section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.85);
+      pointer-events: none;
+    }
+    .services-section .section-title {
+      margin-bottom: 1.5rem;
+      color: #1a1a1a;
+      font-weight: 700;
+      position: relative;
+      z-index: 1;
+    }
+    .services-slider-wrap {
+      position: relative;
+      overflow: visible;
+      z-index: 1;
+      padding: 0 4rem;
+    }
+    .services-track {
+      display: flex;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .services-track::-webkit-scrollbar { display: none; }
+    .services-slide {
+      flex: 0 0 100%;
+      min-width: 100%;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      padding: 2rem 1.5rem 2.25rem;
+      margin: 0 0.2rem;
+      border-radius: 24px;
+      background: #96704C;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+    }
+    .services-slide-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.75rem;
+    }
+    .services-slide-title {
+      color: #fff;
+      font-size: clamp(1.2rem, 2.2vw, 1.6rem);
+      font-weight: 700;
+      margin: 0;
+      text-align: center;
+    }
+    .services-slide-badge {
+      display: inline-block;
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      background: #b08a65;
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+    .services-slide-cards {
+      display: grid;
+      gap: 1px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .services-slide-cards.cols-2 { grid-template-columns: repeat(2, 1fr); }
+    .services-slide-cards.cols-3 { grid-template-columns: repeat(3, 1fr); }
+    .services-slide-cards.cols-4 { grid-template-columns: repeat(4, 1fr); }
+    .services-slide-cards.cols-1 { grid-template-columns: 1fr; }
+    .service-slot-card {
+      background: #fff;
+      padding: 1.5rem 1.25rem;
+      box-shadow: none;
+    }
+    .services-slide-cards.cols-3 .service-slot-card:first-child,
+    .services-slide-cards.cols-2 .service-slot-card:first-child,
+    .services-slide-cards.cols-4 .service-slot-card:first-child { border-radius: 14px 0 0 14px; }
+    .services-slide-cards.cols-3 .service-slot-card:last-child,
+    .services-slide-cards.cols-2 .service-slot-card:last-child,
+    .services-slide-cards.cols-4 .service-slot-card:last-child { border-radius: 0 14px 14px 0; }
+    .services-slide-cards.cols-3 .service-slot-card:only-child,
+    .services-slide-cards.cols-2 .service-slot-card:only-child,
+    .services-slide-cards.cols-1 .service-slot-card { border-radius: 14px; }
+    .service-pill {
+      display: inline-block;
+      padding: 0.4rem 0.85rem;
+      border-radius: 999px;
+      background: #96704C;
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 0.65rem;
+    }
+    .service-slot-card p {
+      color: #1a1a1a;
+      font-size: 0.9rem;
+      line-height: 1.55;
+      margin: 0;
+    }
+    .services-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+      padding: 0 1rem;
+    }
+    .services-nav button {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(150, 112, 76, 0.35);
+      cursor: pointer;
+      transition: opacity 0.2s, background 0.2s;
+    }
+    .services-nav button.active { background: #96704C; opacity: 1; }
+    .services-nav button:hover { opacity: 1; }
+    .services-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: none;
+      background: #c4a882;
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+      z-index: 3;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .services-arrow:hover { background: #b8986e; }
+    .services-arrow.prev { left: 0.5rem; }
+    .services-arrow.next { right: 0.5rem; }
+    .services-arrow svg { width: 22px; height: 22px; }
+    @media (max-width: 768px) {
+      .services-slide { padding: 1.5rem 1rem; margin: 0 0.2rem; border-radius: 20px; }
+      .services-slide-cards.cols-2,
+      .services-slide-cards.cols-3,
+      .services-slide-cards.cols-4 { grid-template-columns: 1fr; }
+      .services-slide-cards.cols-2 .service-slot-card:first-child,
+      .services-slide-cards.cols-3 .service-slot-card:first-child,
+      .services-slide-cards.cols-4 .service-slot-card:first-child { border-radius: 14px 14px 0 0; }
+      .services-slide-cards.cols-2 .service-slot-card:last-child,
+      .services-slide-cards.cols-3 .service-slot-card:last-child,
+      .services-slide-cards.cols-4 .service-slot-card:last-child { border-radius: 0 0 14px 14px; }
+      .services-slide-cards .service-slot-card:nth-child(n+2) { border-radius: 0; }
+      .services-slider-wrap { padding: 0 3rem; }
+      .services-arrow { width: 42px; height: 42px; left: 0.5rem; }
+      .services-arrow.next { right: 0.5rem; }
+    }
+
+    /* ----- Contact (full page, Get in Touch with Us) ----- */
+    .contact-section {
+      width: 100%;
+      max-width: none;
+      min-height: 100vh;
+      margin: 0;
+      padding: 4rem 1.5rem;
+      padding-bottom: max(4rem, env(safe-area-inset-bottom));
+      background: #8fc9c5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .contact-section .contact-inner {
+      width: 100%;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+    .contact-section .contact-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #2d6b67;
+      margin-bottom: 2rem;
+      text-align: left;
+    }
+    .contact-section .contact-form label {
+      display: block;
+      font-weight: 600;
+      color: #2d6b67;
+      margin-bottom: 0.35rem;
+      font-size: 0.95rem;
+    }
+    .contact-section .contact-form input,
+    .contact-section .contact-form textarea {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: none;
+      border-radius: 8px;
+      font-family: inherit;
+      margin-bottom: 1.25rem;
+      font-size: 1rem;
+      background: #fff;
+      color: var(--petlife-brown);
+    }
+    .contact-section .contact-form textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+    .contact-section .contact-form input::placeholder,
+    .contact-section .contact-form textarea::placeholder {
+      color: #999;
+    }
+    .contact-section .contact-form input:focus,
+    .contact-section .contact-form textarea:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(45, 107, 103, 0.3);
+    }
+    .contact-section .contact-form .btn-submit {
+      display: block;
+      width: 100%;
+      max-width: 200px;
+      margin: 1rem auto 0;
+      padding: 0.75rem 1.5rem;
+      background: var(--petlife-teal);
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+    }
+    .contact-section .contact-form .btn-submit:hover {
+      background: rgba(82, 162, 156, 0.9);
+    }
+    .contact-section .contact-hp {
+      position: absolute;
+      left: -9999px;
+      opacity: 0;
+      pointer-events: none;
+      height: 0;
+      overflow: hidden;
+    }
+    .contact-section .contact-status {
+      margin-top: 0.75rem;
+      font-size: 0.875rem;
+      color: var(--petlife-brown);
+      text-align: left;
+    }
+    .contact-section .contact-status.error {
+      color: #b91c1c;
+    }
+    .contact-section .contact-status.success {
+      color: var(--petlife-teal);
+    }
+    .contact-section .contact-form .btn-submit.is-loading {
+      position: relative;
+      opacity: 0.7;
+      pointer-events: none;
+    }
+    .contact-section .contact-form .btn-submit.is-loading::after {
+      content: "";
+      position: absolute;
+      right: 1.25rem;
+      top: 50%;
+      width: 16px;
+      height: 16px;
+      margin-top: -8px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.6);
+      border-top-color: #ffffff;
+      animation: contact-spin 0.6s linear infinite;
+    }
+    @keyframes contact-spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .contact-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.4);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+    }
+    .contact-modal-backdrop.open {
+      display: flex;
+    }
+    .contact-modal {
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 1.75rem 1.5rem;
+      max-width: 420px;
+      width: 90%;
+      box-shadow: 0 18px 45px rgba(116, 59, 25, 0.22);
+    }
+    .contact-modal-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--petlife-brown);
+    }
+    .contact-modal-body {
+      font-size: 0.95rem;
+      color: var(--petlife-brown);
+      margin-bottom: 1.25rem;
+    }
+    .contact-modal-body.error {
+      color: #b91c1c;
+    }
+    .contact-modal-actions {
+      text-align: right;
+    }
+    .contact-modal-close-btn {
+      border: none;
+      border-radius: 999px;
+      padding: 0.6rem 1.4rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: var(--petlife-teal);
+      color: #ffffff;
+      font-family: inherit;
+      box-shadow: 0 6px 16px rgba(82, 162, 156, 0.4);
+    }
+    .contact-modal-close-btn:hover {
+      background: rgba(82, 162, 156, 0.9);
+    }
+
+    /* ----- Footer (contact section at bottom) ----- */
+    footer {
+      background: #fff url("Graphic/bg-honey-fur-pattern.png") center repeat;
+      background-size: auto;
+      position: relative;
+      padding: 3rem 1.5rem;
+      padding-left: max(1.5rem, env(safe-area-inset-left));
+      padding-right: max(1.5rem, env(safe-area-inset-right));
+      padding-bottom: max(3rem, env(safe-area-inset-bottom));
+      border-top: 1px solid rgba(116, 59, 25, 0.06);
+      box-shadow: 0 -2px 20px rgba(0, 0, 0, 0.04);
+    }
+    footer::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.45);
+      pointer-events: none;
+    }
+    .footer-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem;
+      align-items: center;
+    }
+    .footer-brand {
+      text-align: center;
+    }
+    .footer-brand .logo-link { justify-content: center; }
+    .footer-brand .logo-link img { height: 168px; max-width: 100%; width: auto; }
+    .footer-copyright {
+      margin-top: 0.75rem;
+      font-size: 0.85rem;
+      color: #8a7358;
+    }
+    .footer-contact-block {
+      background: var(--petlife-teal);
+      border-radius: 20px;
+      padding: 1.75rem 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem 2rem;
+      max-width: 420px;
+    }
+    .footer-contact-block h4 {
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 700;
+      margin: 0 0 0.5rem 0;
+    }
+    .footer-contact-block a {
+      color: rgba(255, 255, 255, 0.95);
+      text-decoration: none;
+      font-size: 0.9rem;
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+    .footer-contact-block a:hover { text-decoration: underline; }
+    .footer-social {
+      grid-column: 1 / -1;
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+    .footer-social a {
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      transition: opacity 0.2s;
+    }
+    .footer-social a:hover { opacity: 0.85; }
+    .footer-social svg { width: 20px; height: 20px; }
+    @media (max-width: 768px) {
+      .footer-inner { grid-template-columns: 1fr; text-align: center; }
+      .footer-brand .logo-link { justify-content: center; }
+      .footer-contact-block { max-width: none; margin: 0 auto; grid-template-columns: 1fr; text-align: left; }
+      .footer-social { justify-content: flex-start; }
+    }
+
+    /* ===== Responsive: tablet and below ===== */
+    @media (max-width: 1024px) {
+      section { padding: 3rem 1.25rem; }
+      .section-title { font-size: 1.5rem; margin-bottom: 1.5rem; }
+      .mission-vision-section,
+      .open-letter-section { padding: 3rem 1.25rem; }
+      .mission-vision-card { padding: 2rem; }
+      .about { gap: 2rem; }
+      .contact-section { padding: 3rem 1.25rem; }
+    }
+
+    /* ===== Responsive: mobile ===== */
+    @media (max-width: 768px) {
+      .header-inner { padding: 0.6rem 1rem; padding-left: max(1rem, env(safe-area-inset-left)); padding-right: max(1rem, env(safe-area-inset-right)); }
+      .logo-link img { height: 36px; max-height: 40px; }
+      .nav a, .btn-primary, .lang-select { min-height: 44px; padding-top: 0.5rem; padding-bottom: 0.5rem; display: inline-flex; align-items: center; }
+      .welcome { margin-top: 52px; min-height: min(50vh, 280px); aspect-ratio: 1440 / 415; }
+      section { padding: 2rem 1rem; }
+      .section-title { font-size: 1.35rem; margin-bottom: 1.25rem; }
+      .open-letter-section { padding: 2rem 1rem; min-height: auto; }
+      .open-letter-section h2 { font-size: 1.5rem; }
+      .open-letter-section .letter-body { font-size: 0.9375rem; }
+      .about { gap: 1.5rem; }
+      .about-text h2 { font-size: 1.35rem; }
+      .mission-vision-section { padding: 2rem 1rem; }
+      .mission-vision-card { padding: 1.5rem; }
+      .mission-vision-card h3 { font-size: 1.2rem; }
+      .mission-vision-card p { font-size: 0.9rem; }
+      .service-slot-card { padding: 1.25rem; }
+      .service-slot-card p { font-size: 0.875rem; }
+      .services-slide-title { font-size: 1.2rem; }
+      .services-nav button { width: 12px; height: 12px; min-width: 12px; min-height: 12px; }
+      .contact-section { padding: 2rem 1rem; min-height: auto; }
+      .contact-section .contact-title { font-size: 1.35rem; margin-bottom: 1.5rem; }
+      .contact-section .contact-form input,
+      .contact-section .contact-form textarea { padding: 0.75rem 1rem; font-size: 16px; }
+      .contact-section .contact-form .btn-submit { max-width: none; width: 100%; min-height: 48px; }
+      footer { padding: 2rem 1rem; }
+      .footer-contact-block { padding: 1.5rem 1.25rem; }
+      .footer-copyright { font-size: 0.8rem; }
+    }
+
+    /* ===== Responsive: small phones ===== */
+    @media (max-width: 480px) {
+      .header-inner { padding: 0.5rem 0.75rem; padding-left: max(0.75rem, env(safe-area-inset-left)); padding-right: max(0.75rem, env(safe-area-inset-right)); }
+      .logo-link img { height: 64px; }
+      section { padding: 1.5rem 0.75rem; }
+      .section-title { font-size: 1.25rem; }
+      .open-letter-section,
+      .mission-vision-section,
+      .contact-section { padding: 1.5rem 0.75rem; }
+      .open-letter-inner { max-width: 100%; }
+      .mission-vision-card { padding: 1.25rem; }
+      .services-section .services-slide { padding: 1.25rem 0.75rem; }
+      .footer-inner { gap: 1.5rem; }
+      .btn-read-more { padding: 0.75rem 1.25rem; width: 100%; max-width: 280px; }
+    }
+
+    /* ===== Large screens: cap content width for readability ===== */
+    @media (min-width: 1400px) {
+      .header-inner { max-width: 1400px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header" id="header">
+    <div class="header-inner">
+      <a href="#" class="logo-link">
+        <img src="Graphic/Pet Life Web Icons_Logo 2.svg" alt="Pet Life" />
+      </a>
+      <nav class="nav">
+        <a href="#about" data-i18n="nav_about">About Us</a>
+        <a href="#mission-vision" data-i18n="nav_mission">Mission &amp; Vision</a>
+        <a href="#services" data-i18n="nav_services">Services</a>
+      </nav>
+      <div class="header-actions">
+        <button type="button" class="lang-toggle" id="langToggle" aria-label="Toggle language" data-lang="en">
+          <span class="lang-toggle-label lang-toggle-label--en">EN</span>
+          <span class="lang-toggle-label lang-toggle-label--id">ID</span>
+        </button>
+        <a href="https://my.pet-life.co" class="btn-primary" target="_blank" rel="noopener" aria-label="My Pet Life">
+          <span class="btn-primary-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4z" />
+              <path d="M4 20a8 8 0 0 1 16 0" />
+            </svg>
+          </span>
+          <span class="btn-primary-label" data-i18n="btn_my_pet_life">My Pet Life</span>
+        </a>
+      </div>
+      <button type="button" class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <section class="welcome">
+    <div class="welcome-banner" aria-hidden="true"></div>
+  </section>
+
+  <section class="open-letter-section" id="open-letter">
+    <div class="open-letter-inner">
+      <h2 data-i18n="open_letter_title">An Open Letter to Our Pets</h2>
+      <div class="letter-body">
+        <p><strong>Dear Pets,</strong></p>
+        <p>We built Pet Life because of you—your morning walks, the way you greet us at the door, the comfort you bring, the play, the love, the care, and the attention you give every day. You deserved a smarter, safer, and more connected way to be cared for.</p>
+        <p>That’s why we’re giving you something every pet should have: a true identity. A digital ID that protects you, helps reunite you with your family if you’re ever lost, and carries your story—vet visits, vaccinations, wellness—in one place, so nothing is scattered or forgotten.</p>
+        <p>We’re also here for the humans who love you. We want them to feel confident, supported, and informed so they can give you the best life possible. And we want to bring pet parents together, because the people who care for you deserve a community that understands.</p>
+        <p>Thank you for being part of our lives. This is for you.</p>
+      </div>
+      <div class="open-letter-cta">
+        <a href="#about" class="btn-read-more">
+          <span data-i18n="read_more">Read More</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <img src="About Us.jpg" alt="About Pet Life" class="about-image" />
+    <div class="about-text">
+      <h2 class="section-title" style="text-align:left;" data-i18n="section_about">About Us</h2>
+      <p>Pet Life is a company built around one idea: giving every pet a healthier, happier life. We combine expertise in pet care with a deep commitment to quality and transparency.</p>
+      <p>From our beginnings to today, we have focused on products and services that meet the real needs of pets and their owners. We work with veterinarians, behaviourists, and caregivers to ensure our offerings are safe, effective, and easy to use.</p>
+    </div>
+  </section>
+
+  <section class="mission-vision-section" id="mission-vision">
+    <h2 class="section-title" data-i18n="section_mission_vision">Mission &amp; Vision</h2>
+    <div class="mission-vision">
+      <div class="mission-vision-grid">
+        <div class="mission-vision-card">
+          <h3>Mission</h3>
+          <p>Pet Life is building the future of pet care by centralizing pet identification, health records, and wellness management into a single digital ecosystem. Our mission is to empower pet parents, improve continuity of care, and create a connected community that supports healthier outcomes for pets at scale.</p>
+        </div>
+        <div class="mission-vision-card">
+          <h3>Vision</h3>
+          <p>We imagine a future where pet care feels simple, connected, and joyful — where technology quietly works in the background so pets can live healthier lives and humans can focus on love, play, and companionship.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="services-section" id="services">
+    <h2 class="section-title" data-i18n="section_services">Services</h2>
+    <div class="services-slider-wrap">
+      <button type="button" class="services-arrow prev" id="servicesPrev" aria-label="Previous slide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <button type="button" class="services-arrow next" id="servicesNext" aria-label="Next slide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
+      <div class="services-track" id="servicesTrack">
+        <div class="services-slide">
+          <div class="services-slide-header">
+            <h3 class="services-slide-title">Digital Identity &amp; Care Management</h3>
+          </div>
+          <div class="services-slide-cards cols-3">
+            <div class="service-slot-card">
+              <span class="service-pill">Pet ID</span><p>A secure digital identity and official identification for your pets.</p>
+            </div>
+            <div class="service-slot-card">
+              <span class="service-pill">Medical &amp; Vaccination Record</span><p>Securely store health and vaccination records for viewing anytime, anywhere.</p>
+            </div>
+            <div class="service-slot-card">
+              <span class="service-pill">Ownership Administration</span><p>Invite family members or co-parent to stay connected to your pet's health, routines, and important updates.</p>
+            </div>
+          </div>
+        </div>
+        <div class="services-slide">
+          <div class="services-slide-header">
+            <h3 class="services-slide-title">Safety, Health &amp; Smart Support</h3>
+            <span class="services-slide-badge">Coming Soon</span>
+          </div>
+          <div class="services-slide-cards cols-2">
+            <div class="service-slot-card">
+              <span class="service-pill">Pet Tracking (GPS)</span><p>Real-time tracking to keep your pets safe and easy to find.</p>
+            </div>
+            <div class="service-slot-card">
+              <span class="service-pill">Pet AI Chatbot</span><p>An intelligent assistant for pet care guidance and support.</p>
+            </div>
+          </div>
+        </div>
+        <div class="services-slide">
+          <div class="services-slide-header">
+            <h3 class="services-slide-title">Marketplace</h3>
+          </div>
+          <div class="services-slide-cards cols-1">
+            <div class="service-slot-card">
+              <span class="service-pill">Pet Essentials</span><p>Your guided marketplace for everyday pet care. Explore trusted stores for pet food, toys, accessories, clothing and daily essentials.</p>
+            </div>
+          </div>
+        </div>
+        <div class="services-slide">
+          <div class="services-slide-header">
+            <h3 class="services-slide-title">Community &amp; Social Impact</h3>
+          </div>
+          <div class="services-slide-cards cols-2">
+            <div class="service-slot-card">
+              <span class="service-pill">Events &amp; Communities</span><p>Connects pet parents through events and social groups.</p>
+            </div>
+            <div class="service-slot-card">
+              <span class="service-pill">Pet Adoption</span><p>A guide on reliable communities and institutions to adopt and rehome pets.</p>
+            </div>
+          </div>
+        </div>
+        <div class="services-slide">
+          <div class="services-slide-header">
+            <h3 class="services-slide-title">Care &amp; Professional Support</h3>
+          </div>
+          <div class="services-slide-cards cols-4">
+            <div class="service-slot-card">
+              <span class="service-pill">Pet Clinic / Veterinary Directory</span><p>Search and discover pet clinics and veterinary services, making it easier to access reliable care.</p>
+            </div>
+            <div class="service-slot-card">
+              <span class="service-pill">Grooming</span><p>A guide on professional grooming services to keep your pets clean and healthy.</p>
+            </div>
+            <div class="service-slot-card">
+              <span class="service-pill">Boarding &amp; Hotel</span><p>A guide on comfortable stays for your pets while you're away.</p>
+            </div>
+            <div class="service-slot-card">
+              <span class="service-pill">Pet Walking</span><p>A guide on reliable walking services for daily exercises and care.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="services-nav" id="servicesNav"></div>
+    </div>
+  </section>
+
+  <section class="contact-section" id="contact">
+    <div class="contact-inner">
+      <h2 class="contact-title" data-i18n="contact_title">Get in Touch with Us</h2>
+      <form class="contact-form" id="contactForm" action="#" method="post" aria-label="Contact form" novalidate>
+        <div class="contact-hp" aria-hidden="true">
+          <label for="contact-company">Company</label>
+          <input type="text" id="contact-company" name="company" autocomplete="off" tabindex="-1" />
+        </div>
+        <label for="contact-name" data-i18n="contact_name">Name</label>
+        <input type="text" id="contact-name" name="name" required data-i18n-placeholder="contact_name_placeholder" placeholder="Your Name" />
+        <label for="contact-email" data-i18n="contact_email">Email Address</label>
+        <input type="email" id="contact-email" name="email" required data-i18n-placeholder="contact_email_placeholder" placeholder="Your Email Address" />
+        <label for="contact-mobile" data-i18n="contact_mobile">Mobile Number</label>
+        <input type="tel" id="contact-mobile" name="mobile" data-i18n-placeholder="contact_mobile_placeholder" placeholder="Your Mobile Number" />
+        <label for="contact-message" data-i18n="contact_message">Your Message</label>
+        <textarea id="contact-message" name="message" data-i18n-placeholder="contact_message_placeholder" placeholder="Your Message"></textarea>
+        <button type="submit" class="btn-submit" data-i18n="contact_submit">Submit</button>
+      </form>
+    </div>
+  </section>
+
+  <div class="contact-modal-backdrop" id="contactModal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="contact-modal">
+      <h3 class="contact-modal-title" id="contactModalTitle" data-i18n="contact_modal_success_title">Message sent</h3>
+      <p class="contact-modal-body" id="contactModalBody" data-i18n="contact_modal_success_body">Thank you for reaching out. We&#39;ll get back to you shortly.</p>
+      <div class="contact-modal-actions">
+        <button type="button" class="contact-modal-close-btn" data-contact-modal-close data-i18n="contact_modal_close">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="#" class="logo-link">
+          <img src="Graphic/Pet Life Web Icons_Logo 2.svg" alt="Pet Life" />
+        </a>
+        <p class="footer-copyright">&copy; 2026 PT Pet Life Teknologi. All Rights Reserved.</p>
+      </div>
+      <div class="footer-contact-block">
+        <div>
+          <h4 data-i18n="footer_company">Company</h4>
+          <a href="#" data-i18n="footer_terms">Terms &amp; Conditions Policy</a>
+        </div>
+        <div>
+          <h4 data-i18n="footer_contact">Contact Us</h4>
+          <a href="mailto:info@pet-life.co">info@pet-life.co</a>
+        </div>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+          <a href="#" aria-label="Facebook" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+          <a href="#" aria-label="TikTok" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg></a>
+          <a href="#" aria-label="LinkedIn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.453C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var LANG_KEY = 'petlife_lang';
+      var strings = {
+        en: {
+          nav_about: 'About Us',
+          nav_mission: 'Mission & Vision',
+          nav_services: 'Services',
+          btn_my_pet_life: 'My Pet Life',
+          open_letter_title: 'An Open Letter to Our Pets',
+          read_more: 'Read More',
+          section_about: 'About Us',
+          section_mission_vision: 'Mission & Vision',
+          section_services: 'Services',
+          contact_title: 'Get in Touch with Us',
+          contact_name: 'Name',
+          contact_name_placeholder: 'Your Name',
+          contact_email: 'Email Address',
+          contact_email_placeholder: 'Your Email Address',
+          contact_mobile: 'Mobile Number',
+          contact_mobile_placeholder: 'Your Mobile Number',
+          contact_message: 'Your Message',
+          contact_message_placeholder: 'Your Message',
+          contact_submit: 'Submit',
+          contact_error_required: 'Please fill in your name, email, and message.',
+          contact_sending_inline: 'Sending your message...',
+          contact_success_inline: 'Thank you, your message has been sent.',
+          contact_error_inline: 'Sorry, something went wrong. Please try again.',
+          contact_button_sending: 'Sending...',
+          contact_modal_success_title: 'Message sent',
+          contact_modal_success_body: 'Thank you for reaching out. We will get back to you shortly.',
+          contact_modal_error_title: 'Something went wrong',
+          contact_modal_error_body_generic: 'We could not send your message right now. Please try again in a moment.',
+          contact_modal_error_body_network: 'We could not send your message right now. Please check your connection and try again.',
+          contact_modal_close: 'Close',
+          footer_company: 'Company',
+          footer_contact: 'Contact Us',
+          footer_terms: 'Terms & Conditions Policy'
+        },
+        id: {
+          nav_about: 'Tentang Kami',
+          nav_mission: 'Misi & Visi',
+          nav_services: 'Layanan',
+          btn_my_pet_life: 'My Pet Life',
+          open_letter_title: 'Surat Terbuka untuk Hewan Peliharaan Kita',
+          read_more: 'Baca Selengkapnya',
+          section_about: 'Tentang Kami',
+          section_mission_vision: 'Misi & Visi',
+          section_services: 'Layanan',
+          contact_title: 'Hubungi Kami',
+          contact_name: 'Nama',
+          contact_name_placeholder: 'Nama Anda',
+          contact_email: 'Alamat Email',
+          contact_email_placeholder: 'Alamat Email Anda',
+          contact_mobile: 'Nomor Ponsel',
+          contact_mobile_placeholder: 'Nomor Ponsel Anda',
+          contact_message: 'Pesan Anda',
+          contact_message_placeholder: 'Pesan Anda',
+          contact_submit: 'Kirim',
+          contact_error_required: 'Mohon isi nama, email, dan pesan Anda.',
+          contact_sending_inline: 'Mengirim pesan Anda...',
+          contact_success_inline: 'Terima kasih, pesan Anda sudah terkirim.',
+          contact_error_inline: 'Maaf, terjadi kendala. Silakan coba lagi.',
+          contact_button_sending: 'Mengirim...',
+          contact_modal_success_title: 'Pesan terkirim',
+          contact_modal_success_body: 'Terima kasih sudah menghubungi kami. Kami akan membalas secepatnya.',
+          contact_modal_error_title: 'Terjadi kendala',
+          contact_modal_error_body_generic: 'Kami belum dapat mengirim pesan Anda saat ini. Silakan coba lagi beberapa saat lagi.',
+          contact_modal_error_body_network: 'Kami belum dapat mengirim pesan Anda saat ini. Periksa koneksi Anda lalu coba lagi.',
+          contact_modal_close: 'Tutup',
+          footer_company: 'Perusahaan',
+          footer_contact: 'Hubungi Kami',
+          footer_terms: 'Syarat & Ketentuan'
+        }
+      };
+
+      function currentLang() {
+        var lang = document.documentElement.lang || 'en';
+        return strings[lang] ? lang : 'en';
+      }
+
+      function t(key) {
+        var lang = currentLang();
+        if (strings[lang] && strings[lang][key]) return strings[lang][key];
+        if (strings.en && strings.en[key]) return strings.en[key];
+        return '';
+      }
+
+      function applyLang(lang) {
+        if (!strings[lang]) lang = 'en';
+        document.documentElement.lang = lang;
+        try { localStorage.setItem(LANG_KEY, lang); } catch (e) {}
+
+        document.querySelectorAll('[data-i18n]').forEach(function (el) {
+          var key = el.getAttribute('data-i18n');
+          if (strings[lang][key]) el.textContent = strings[lang][key];
+        });
+        document.querySelectorAll('[data-i18n-placeholder]').forEach(function (el) {
+          var key = el.getAttribute('data-i18n-placeholder');
+          if (strings[lang][key]) el.placeholder = strings[lang][key];
+        });
+
+        var letterBody = document.querySelector('.letter-body');
+        if (letterBody) {
+          if (lang === 'id') {
+            letterBody.innerHTML = `
+        <p><strong>Hewan kesayangan kami,</strong></p>
+        <p>Mungkin kamu belum mengetahuinya, tetapi kamulah alasan kami membangun Pet Life.</p>
+        <p>Kamulah jalan pagi yang menyegarkan, sambutan penuh semangat di depan pintu, penghiburan yang tenang di hari-hari yang berat, dan pengingat tanpa henti untuk bermain. Kamu tidak meminta banyak — hanya cinta, perhatian, dan sedikit waktu. Kami percaya kamu pantas mendapatkan lebih dari itu. Kamu pantas mendapatkan yang terbaik.</p>
+        <p>Itulah mengapa kami menciptakan cara yang lebih cerdas, lebih aman, dan lebih terhubung untuk merawatmu — dimulai dengan sesuatu yang layak dimiliki setiap hewan peliharaan: identitas yang sesungguhnya.</p>
+        <p>Di jantung Pet Life terdapat ID digital yang dibuat khusus untukmu. Sebuah identitas yang membantu menjagamu tetap terlindungi, mempertemukanmu kembali lebih cepat jika kamu tersesat, dan menyimpan riwayat medis dengan aman ke mana pun hidup membawamu. Dari kunjungan ke dokter hewan dan vaksinasi hingga perawatan harian, informasi pentingmu tetap bersamamu — tidak tersebar di berbagai map, klinik, atau hanya dalam ingatan.</p>
+        <p>Namun Pet Life bukan hanya tentang data dan alat. Ini tentang koneksi. Ini tentang membantu manusia yang menyayangimu merasa lebih percaya diri, didukung, dan mendapatkan informasi yang tepat. Ini tentang menyatukan para orang tua hewan peliharaan dalam sebuah komunitas tempat mereka bisa berbagi, belajar, dan mengingat untuk melambat serta bermain.</p>
+        <p>Kami membangun platform ini dengan kamu dalam pikiran kami — untuk memberikan identitas yang kamu pantas dapatkan, mendukung tahun-tahun yang lebih sehat, petualangan yang lebih aman, dan lebih banyak waktu melakukan hal-hal yang paling kamu cintai.</p>
+        <p>Terima kasih telah mempercayakan hati, rumah, dan hidupmu kepada kami.<br/>Kami berjanji akan terus membangun sesuatu yang layak untukmu.</p>
+        <p>Dengan cinta,<br/>Pet Life</p>
+            `;
+          } else {
+            letterBody.innerHTML = `
+        <p><strong>Dear Pets,</strong></p>
+        <p>We built Pet Life because of you—your morning walks, the way you greet us at the door, the comfort you bring, the play, the love, the care, and the attention you give every day. You deserved a smarter, safer, and more connected way to be cared for.</p>
+        <p>That’s why we’re giving you something every pet should have: a true identity. A digital ID that protects you, helps reunite you with your family if you’re ever lost, and carries your story—vet visits, vaccinations, wellness—in one place, so nothing is scattered or forgotten.</p>
+        <p>We’re also here for the humans who love you. We want them to feel confident, supported, and informed so they can give you the best life possible. And we want to bring pet parents together, because the people who care for you deserve a community that understands.</p>
+        <p>Thank you for being part of our lives. This is for you.</p>
+            `;
+          }
+        }
+
+        var about = document.querySelector('.about-text');
+        if (about) {
+          if (lang === 'id') {
+            about.innerHTML = `
+      <h2 class="section-title" style="text-align:left;" data-i18n="section_about">Tentang Kami</h2>
+      <p>Di Pet Life, kami percaya setiap anabul berhak mendapatkan perawatan terbaik dan setiap pemilik berhak merasa tenang. Karena itu, kami menyediakan ID digital unik, pelacakan riwayat medis lengkap, serta alat perawatan pintar—semuanya dalam satu tempat. Mulai dari kunjungan ke dokter hewan, jadwal vaksinasi, hingga kesehatan harian, Pet Life membantu Anda tetap terorganisir, terinformasi, dan terhubung dengan hal yang paling penting: kesehatan dan kebahagiaan anabul Anda. Terhubung dengan sesama pemilik anabul dan komunitas untuk saling berbagi dukungan dan pengalaman seru bersama.</p>
+            `;
+          } else {
+            about.innerHTML = `
+      <h2 class="section-title" style="text-align:left;" data-i18n="section_about">About Us</h2>
+      <p>Pet Life is a company built around one idea: giving every pet a healthier, happier life. We combine expertise in pet care with a deep commitment to quality and transparency.</p>
+      <p>From our beginnings to today, we have focused on products and services that meet the real needs of pets and their owners. We work with veterinarians, behaviourists, and caregivers to ensure our offerings are safe, effective, and easy to use.</p>
+            `;
+          }
+        }
+
+        var missionCards = document.querySelectorAll('.mission-vision-card');
+        if (missionCards.length >= 1) {
+          var missionCard = missionCards[0];
+          if (lang === 'id') {
+            missionCard.innerHTML = `
+          <h3>Misi</h3>
+          <p>Pet Life membangun masa depan perawatan hewan peliharaan dengan mengintegrasikan identitas hewan, rekam kesehatan, dan manajemen kesejahteraan dalam satu ekosistem digital terpadu. Misi kami adalah memberdayakan para pemilik hewan, meningkatkan kesinambungan perawatan, serta menciptakan komunitas yang saling terhubung untuk mendukung kesehatan hewan peliharaan yang lebih baik secara luas.</p>
+            `;
+          } else {
+            missionCard.innerHTML = `
+          <h3>Mission</h3>
+          <p>Pet Life is building the future of pet care by centralizing pet identification, health records, and wellness management into a single digital ecosystem. Our mission is to empower pet parents, improve continuity of care, and create a connected community that supports healthier outcomes for pets at scale.</p>
+            `;
+          }
+        }
+        if (missionCards.length >= 2) {
+          var visionCard = missionCards[1];
+          if (lang === 'id') {
+            visionCard.innerHTML = `
+          <h3>Visi</h3>
+          <p>Kami membayangkan masa depan di mana perawatan hewan peliharaan terasa sederhana, terhubung, dan menyenangkan — di mana teknologi bekerja secara mulus di balik layar sehingga hewan peliharaan dapat hidup lebih sehat dan para pemiliknya dapat fokus pada kasih sayang, kebersamaan, dan momen bermain.</p>
+            `;
+          } else {
+            visionCard.innerHTML = `
+          <h3>Vision</h3>
+          <p>We imagine a future where pet care feels simple, connected, and joyful — where technology quietly works in the background so pets can live healthier lives and humans can focus on love, play, and companionship.</p>
+            `;
+          }
+        }
+
+        var servicesSlides = document.querySelectorAll('.services-slide');
+        if (servicesSlides.length >= 1) {
+          var firstSlide = servicesSlides[0];
+          var slideTitle = firstSlide.querySelector('.services-slide-title');
+          var serviceCards = firstSlide.querySelectorAll('.service-slot-card');
+          if (slideTitle && serviceCards.length >= 3) {
+            if (lang === 'id') {
+              slideTitle.textContent = 'Identitas Digital & Managemen Perawatan';
+              serviceCards[0].innerHTML = '<span class="service-pill">Pet ID</span><p>Identitas digital yang aman dan resmi untuk hewan peliharaan Anda.</p>';
+              serviceCards[1].innerHTML = '<span class="service-pill">Rekam Medis &amp; Vaksinasi</span><p>Simpan rekam kesehatan dan vaksinasi dengan aman untuk diakses kapan saja dan di mana saja.</p>';
+              serviceCards[2].innerHTML = `<span class="service-pill">Berbagi Keluarga</span><p>Undang anggota keluarga atau co-parent untuk tetap terhubung dengan kesehatan, rutinitas, dan pembaruan penting hewan peliharaan Anda.</p>`;
+            } else {
+              slideTitle.textContent = 'Digital Identity & Care Management';
+              serviceCards[0].innerHTML = '<span class="service-pill">Pet ID</span><p>A secure digital identity and official identification for your pets.</p>';
+              serviceCards[1].innerHTML = '<span class="service-pill">Medical &amp; Vaccination Record</span><p>Securely store health and vaccination records for viewing anytime, anywhere.</p>';
+              serviceCards[2].innerHTML = `<span class="service-pill">Ownership Administration</span><p>Invite family members or co-parent to stay connected to your pet's health, routines, and important updates.</p>`;
+            }
+          }
+        }
+        if (servicesSlides.length >= 2) {
+          var secondSlide = servicesSlides[1];
+          var slide2Title = secondSlide.querySelector('.services-slide-title');
+          var slide2Badge = secondSlide.querySelector('.services-slide-badge');
+          var slide2Cards = secondSlide.querySelectorAll('.service-slot-card');
+          if (slide2Title && slide2Cards.length >= 2) {
+            if (lang === 'id') {
+              slide2Title.textContent = 'Keamanan, Kesehatan & Dukungan Cerdas';
+              if (slide2Badge) slide2Badge.textContent = 'Segera Hadir';
+              slide2Cards[0].innerHTML = `<span class="service-pill">Pelacakan Hewan (GPS)</span><p>Pelacakan lokasi secara real-time untuk menjaga hewan peliharaan Anda tetap aman dan mudah ditemukan.</p>`;
+              slide2Cards[1].innerHTML = `<span class="service-pill">Chatbot AI Pet</span><p>Asisten cerdas untuk panduan dan dukungan dalam perawatan hewan peliharaan.</p>`;
+            } else {
+              slide2Title.textContent = 'Safety, Health & Smart Support';
+              if (slide2Badge) slide2Badge.textContent = 'Coming Soon';
+              slide2Cards[0].innerHTML = `<span class="service-pill">Pet Tracking (GPS)</span><p>Real-time tracking to keep your pets safe and easy to find.</p>`;
+              slide2Cards[1].innerHTML = `<span class="service-pill">Pet AI Chatbot</span><p>An intelligent assistant for pet care guidance and support.</p>`;
+            }
+          }
+        }
+        if (servicesSlides.length >= 3) {
+          var thirdSlide = servicesSlides[2];
+          var slide3Title = thirdSlide.querySelector('.services-slide-title');
+          var slide3Cards = thirdSlide.querySelectorAll('.service-slot-card');
+          if (slide3Title && slide3Cards.length >= 1) {
+            if (lang === 'id') {
+              slide3Title.textContent = 'Marketplace & Kebutuhan Harian';
+              slide3Cards[0].innerHTML = `<span class="service-pill">Pet Essentials</span><p>Marketplace pilihan Anda untuk kebutuhan perawatan hewan sehari-hari. Jelajahi toko tepercaya untuk makanan hewan, mainan, aksesori, pakaian, dan kebutuhan harian lainnya.</p>`;
+            } else {
+              slide3Title.textContent = 'Marketplace';
+              slide3Cards[0].innerHTML = `<span class="service-pill">Pet Essentials</span><p>Your guided marketplace for everyday pet care. Explore trusted stores for pet food, toys, accessories, clothing and daily essentials.</p>`;
+            }
+          }
+        }
+        if (servicesSlides.length >= 5) {
+          var fifthSlide = servicesSlides[4];
+          var slide5Title = fifthSlide.querySelector('.services-slide-title');
+          var slide5Cards = fifthSlide.querySelectorAll('.service-slot-card');
+          if (slide5Title && slide5Cards.length >= 4) {
+            if (lang === 'id') {
+              slide5Title.textContent = 'Perawatan & Dukungan Profesional';
+              slide5Cards[0].innerHTML = '<span class="service-pill">Direktori Klinik / Dokter Hewan</span><p>Cari dan temukan klinik serta layanan dokter hewan, sehingga lebih mudah mengakses perawatan yang tepercaya.</p>';
+              slide5Cards[1].innerHTML = '<span class="service-pill">Grooming</span><p>Panduan layanan grooming profesional untuk menjaga hewan peliharaan Anda tetap bersih dan sehat.</p>';
+              slide5Cards[2].innerHTML = '<span class="service-pill">Penitipan & Hotel Hewan</span><p>Panduan tempat menginap yang nyaman untuk hewan peliharaan Anda saat Anda bepergian.</p>';
+              slide5Cards[3].innerHTML = '<span class="service-pill">Jasa Jalan Hewan</span><p>Panduan layanan jalan hewan yang tepercaya untuk olahraga dan perawatan harian.</p>';
+            } else {
+              slide5Title.textContent = 'Care & Professional Support';
+              slide5Cards[0].innerHTML = '<span class="service-pill">Pet Clinic / Veterinary Directory</span><p>Search and discover pet clinics and veterinary services, making it easier to access reliable care.</p>';
+              slide5Cards[1].innerHTML = '<span class="service-pill">Grooming</span><p>A guide on professional grooming services to keep your pets clean and healthy.</p>';
+              slide5Cards[2].innerHTML = '<span class="service-pill">Boarding & Hotel</span><p>A guide on comfortable stays for your pets while you are away.</p>';
+              slide5Cards[3].innerHTML = '<span class="service-pill">Pet Walking</span><p>A guide on reliable walking services for daily exercises and care.</p>';
+            }
+          }
+        }
+
+        var toggleEl = document.getElementById('langToggle');
+        if (toggleEl) toggleEl.setAttribute('data-lang', lang);
+      }
+
+
+      var langToggle = document.getElementById('langToggle');
+      if (langToggle) {
+        langToggle.addEventListener('click', function () {
+          var current = document.documentElement.lang === 'id' ? 'id' : 'en';
+          var next = current === 'en' ? 'id' : 'en';
+          applyLang(next);
+        });
+      }
+
+      var saved = null;
+      try { saved = localStorage.getItem(LANG_KEY); } catch (e) {}
+      applyLang(saved === 'id' ? 'id' : 'en');
+
+      var header = document.getElementById('header');
+      var menuToggle = document.getElementById('menuToggle');
+      if (menuToggle) {
+        menuToggle.addEventListener('click', function () {
+          header.classList.toggle('open');
+          menuToggle.classList.toggle('open');
+        });
+      }
+      document.querySelectorAll('.nav a').forEach(function (a) {
+        a.addEventListener('click', function () {
+          header.classList.remove('open');
+          if (menuToggle) menuToggle.classList.remove('open');
+        });
+      });
+
+      var track = document.getElementById('servicesTrack');
+      var nav = document.getElementById('servicesNav');
+      var prevBtn = document.getElementById('servicesPrev');
+      var nextBtn = document.getElementById('servicesNext');
+      if (track && nav) {
+        var slides = track.querySelectorAll('.services-slide');
+        var n = slides.length;
+        function goToSlide(idx) {
+          idx = Math.max(0, Math.min(idx, n - 1));
+          var el = slides[idx];
+          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+          nav.querySelectorAll('button').forEach(function (b, i) { b.classList.toggle('active', i === idx); });
+        }
+        function slideWidth() { return track.offsetWidth; }
+        for (var i = 0; i < n; i++) {
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+          if (i === 0) btn.classList.add('active');
+          btn.addEventListener('click', function (idx) { goToSlide(idx); }.bind(null, i));
+          nav.appendChild(btn);
+        }
+        track.addEventListener('scroll', function () {
+          var slideW = slideWidth();
+          if (slideW <= 0) return;
+          var idx = Math.round(track.scrollLeft / slideW);
+          idx = Math.max(0, Math.min(idx, n - 1));
+          nav.querySelectorAll('button').forEach(function (b, i) {
+            b.classList.toggle('active', i === idx);
+          });
+        });
+        if (prevBtn) prevBtn.addEventListener('click', function () {
+          var slideW = slideWidth();
+          var idx = Math.floor(track.scrollLeft / slideW);
+          goToSlide(idx - 1);
+        });
+        if (nextBtn) nextBtn.addEventListener('click', function () {
+          var slideW = slideWidth();
+          var idx = Math.floor(track.scrollLeft / slideW);
+          goToSlide(idx + 1);
+        });
+      }
+
+      var contactForm = document.getElementById('contactForm');
+      if (contactForm) {
+        var contactFormEl = contactForm;
+        var statusEl = document.createElement('p');
+        statusEl.className = 'contact-status';
+        statusEl.setAttribute('aria-live', 'polite');
+        contactFormEl.appendChild(statusEl);
+
+        var submitBtn = contactFormEl.querySelector('.btn-submit');
+        var contactModal = document.getElementById('contactModal');
+        var contactModalTitle = contactModal && contactModal.querySelector('#contactModalTitle');
+        var contactModalBody = contactModal && contactModal.querySelector('#contactModalBody');
+        var contactModalClose = contactModal && contactModal.querySelector('[data-contact-modal-close]');
+
+        function setLoading(isLoading) {
+          if (!submitBtn) return;
+          if (isLoading) {
+            if (!submitBtn.dataset.originalText) {
+              submitBtn.dataset.originalText = submitBtn.textContent || '';
+            }
+            submitBtn.textContent = t('contact_button_sending') || submitBtn.textContent || '';
+            submitBtn.classList.add('is-loading');
+            submitBtn.disabled = true;
+          } else {
+            submitBtn.disabled = false;
+            submitBtn.classList.remove('is-loading');
+            if (submitBtn.dataset.originalText) {
+              submitBtn.textContent = submitBtn.dataset.originalText;
+            }
+          }
+        }
+
+        function openContactModal(title, message, isError) {
+          if (!contactModal || !contactModalTitle || !contactModalBody) return;
+          contactModalTitle.textContent = title;
+          contactModalBody.textContent = message;
+          contactModalBody.classList.toggle('error', !!isError);
+          contactModal.classList.add('open');
+          contactModal.setAttribute('aria-hidden', 'false');
+        }
+
+        function closeContactModal() {
+          if (!contactModal) return;
+          contactModal.classList.remove('open');
+          contactModal.setAttribute('aria-hidden', 'true');
+        }
+
+        if (contactModalClose) {
+          contactModalClose.addEventListener('click', function () {
+            closeContactModal();
+          });
+        }
+
+        if (contactModal) {
+          contactModal.addEventListener('click', function (event) {
+            if (event.target === contactModal) {
+              closeContactModal();
+            }
+          });
+        }
+
+        document.addEventListener('keydown', function (event) {
+          if (event.key === 'Escape') {
+            closeContactModal();
+          }
+        });
+
+        contactFormEl.addEventListener('submit', function (event) {
+          event.preventDefault();
+
+          statusEl.textContent = '';
+          statusEl.classList.remove('error', 'success');
+
+          var formData = new FormData(contactFormEl);
+          var name = (formData.get('name') || '').toString().trim();
+          var email = (formData.get('email') || '').toString().trim();
+          var mobile = (formData.get('mobile') || '').toString().trim();
+          var message = (formData.get('message') || '').toString().trim();
+
+          if (!name || !email || !message) {
+            statusEl.textContent = t('contact_error_required');
+            statusEl.classList.add('error');
+            return;
+          }
+
+          statusEl.textContent = t('contact_sending_inline');
+          setLoading(true);
+
+          fetch('/api/contact', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name: name, email: email, mobile: mobile, message: message })
+          })
+            .then(function (response) {
+              if (!response.ok) throw new Error('Request failed');
+              return response.json().catch(function () {
+                return {};
+              });
+            })
+            .then(function (data) {
+              setLoading(false);
+              var isSuccess = data && data.success !== false;
+              if (isSuccess) {
+                statusEl.textContent = t('contact_success_inline');
+                statusEl.classList.add('success');
+                contactFormEl.reset();
+                openContactModal(
+                  t('contact_modal_success_title'),
+                  t('contact_modal_success_body'),
+                  false
+                );
+              } else {
+                statusEl.textContent = t('contact_error_inline');
+                statusEl.classList.add('error');
+                openContactModal(
+                  t('contact_modal_error_title'),
+                  t('contact_modal_error_body_generic'),
+                  true
+                );
+              }
+            })
+            .catch(function () {
+              setLoading(false);
+              statusEl.textContent = t('contact_error_inline');
+              statusEl.classList.add('error');
+              openContactModal(
+                t('contact_modal_error_title'),
+                t('contact_modal_error_body_network'),
+                true
+              );
+            });
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
