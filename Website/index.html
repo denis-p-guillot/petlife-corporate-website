@@ -366,6 +366,21 @@
       line-height: 1.75;
       margin-bottom: 2rem;
       text-align: justify;
+      position: relative;
+    }
+    .open-letter-section .letter-body.is-collapsed {
+      max-height: 18rem;
+      overflow: hidden;
+    }
+    .open-letter-section .letter-body.is-collapsed::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 64px;
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #ffffff);
+      pointer-events: none;
     }
     .open-letter-section .letter-body p {
       margin-bottom: 1rem;
@@ -1028,10 +1043,10 @@
         <p>With love,<br/>Pet Life</p>
       </div>
       <div class="open-letter-cta">
-        <a href="#about" class="btn-read-more">
+        <button type="button" class="btn-read-more" id="openLetterToggle" aria-expanded="false">
           <span data-i18n="read_more">Read More</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-        </a>
+        </button>
       </div>
     </div>
   </section>
@@ -1213,6 +1228,7 @@
           btn_my_pet_life: 'My Pet Life',
           open_letter_title: 'An Open Letter to Our Pets',
           read_more: 'Read More',
+          read_less: 'Read Less',
           section_about: 'About Us',
           section_mission_vision: 'Mission & Vision',
           section_services: 'Services',
@@ -1248,6 +1264,7 @@
           btn_my_pet_life: 'My Pet Life',
           open_letter_title: 'An Open Letter to Our Pets',
           read_more: 'Baca Selengkapnya',
+          read_less: 'Tutup',
           section_about: 'Tentang Kami',
           section_mission_vision: 'Misi & Visi',
           section_services: 'Layanan',
@@ -1469,6 +1486,28 @@
       var saved = null;
       try { saved = localStorage.getItem(LANG_KEY); } catch (e) {}
       applyLang(saved === 'id' ? 'id' : 'en');
+
+      // Open Letter read more / read less toggle
+      var letterBodyEl = document.querySelector('.letter-body');
+      var openLetterToggle = document.getElementById('openLetterToggle');
+
+      function setLetterCollapsed(collapsed) {
+        if (!letterBodyEl || !openLetterToggle) return;
+        letterBodyEl.classList.toggle('is-collapsed', collapsed);
+        openLetterToggle.setAttribute('aria-expanded', (!collapsed).toString());
+        var labelSpan = openLetterToggle.querySelector('[data-i18n="read_more"]');
+        if (labelSpan) {
+          labelSpan.textContent = collapsed ? t('read_more') : t('read_less');
+        }
+      }
+
+      if (letterBodyEl && openLetterToggle) {
+        setLetterCollapsed(true);
+        openLetterToggle.addEventListener('click', function () {
+          var collapsed = letterBodyEl.classList.contains('is-collapsed');
+          setLetterCollapsed(!collapsed);
+        });
+      }
 
       var header = document.getElementById('header');
       var menuToggle = document.getElementById('menuToggle');
