@@ -340,6 +340,10 @@
       margin-left: 0;
       margin-right: 0;
     }
+    .open-letter-section.is-collapsed {
+      min-height: auto;
+      padding-bottom: 2.5rem;
+    }
     .open-letter-section::before {
       content: "";
       position: absolute;
@@ -1489,11 +1493,15 @@
 
       // Open Letter read more / read less toggle
       var letterBodyEl = document.querySelector('.letter-body');
+      var openLetterSection = document.querySelector('.open-letter-section');
       var openLetterToggle = document.getElementById('openLetterToggle');
 
       function setLetterCollapsed(collapsed) {
         if (!letterBodyEl || !openLetterToggle) return;
         letterBodyEl.classList.toggle('is-collapsed', collapsed);
+        if (openLetterSection) {
+          openLetterSection.classList.toggle('is-collapsed', collapsed);
+        }
         openLetterToggle.setAttribute('aria-expanded', (!collapsed).toString());
         var labelSpan = openLetterToggle.querySelector('[data-i18n="read_more"]');
         if (labelSpan) {
