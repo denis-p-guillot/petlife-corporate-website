@@ -386,8 +386,16 @@
       border-radius: 12px;
       box-shadow: 0 8px 24px rgba(116, 59, 25, 0.1);
     }
-    .about-text h2 { font-size: 1.5rem; margin-bottom: 1rem; color: var(--petlife-brown); }
-    .about-text p { color: var(--petlife-tan); margin-bottom: 1rem; }
+    .about-text h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: #000000;
+    }
+    .about-text p {
+      color: #000000;
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
     @media (max-width: 768px) {
       .about { grid-template-columns: 1fr; }
     }
@@ -975,10 +983,14 @@
       <h1 data-i18n="open_letter_title">An Open Letter to Our Pets</h1>
       <div class="letter-body">
         <p><strong>Dear Pets,</strong></p>
-        <p>We built Pet Life because of you—your morning walks, the way you greet us at the door, the comfort you bring, the play, the love, the care, and the attention you give every day. You deserved a smarter, safer, and more connected way to be cared for.</p>
-        <p>That’s why we’re giving you something every pet should have: a true identity. A digital ID that protects you, helps reunite you with your family if you’re ever lost, and carries your story—vet visits, vaccinations, wellness—in one place, so nothing is scattered or forgotten.</p>
-        <p>We’re also here for the humans who love you. We want them to feel confident, supported, and informed so they can give you the best life possible. And we want to bring pet parents together, because the people who care for you deserve a community that understands.</p>
-        <p>Thank you for being part of our lives. This is for you.</p>
+        <p>You may not know this yet, but you’re the reason we’re building Pet Life.</p>
+        <p>You’re the early morning walks, the excited greetings at the door, the quiet comfort on hard days, and the endless reminders to play. You don’t ask for much — just love, care, and a little attention. We think you deserve more than that. You deserve the very best.</p>
+        <p>That’s why we’re creating a smarter, safer, more connected way to care for you — starting with something every pet deserves: a true identity.</p>
+        <p>At the heart of Pet Life is a digital ID made just for you. One that helps keep you protected, reunites you faster if you’re ever lost, and securely carries your medical history wherever life takes you. From vet visits and vaccinations to everyday wellness, your important information stays with you — not scattered across folders, clinics, or memories.</p>
+        <p>But Pet Life isn’t just about data and tools. It’s about connection. It’s about helping your humans feel confident, supported, and informed. It’s about bringing pet parents together into communities where they can share, learn, and remember to slow down and play.</p>
+        <p>We’re building this platform with you in mind — to give you the identification you deserve, to support healthier years, safer adventures, and more time doing what you love most.</p>
+        <p>Thank you for trusting us with your hearts, your homes, and your lives.<br/>We promise to keep building something worthy of you.</p>
+        <p>With love,<br/>Pet Life</p>
       </div>
       <div class="open-letter-cta">
         <a href="#about" class="btn-read-more">
@@ -993,8 +1005,8 @@
     <img src="AboutUs2.jpg" alt="About Pet Life" class="about-image" />
     <div class="about-text">
       <h2 class="section-title" style="text-align:left;" data-i18n="section_about">About Us</h2>
-      <p>Pet Life is a company built around one idea: giving every pet a healthier, happier life. We combine expertise in pet care with a deep commitment to quality and transparency.</p>
-      <p>From our beginnings to today, we have focused on products and services that meet the real needs of pets and their owners. We work with veterinarians, behaviourists, and caregivers to ensure our offerings are safe, effective, and easy to use.</p>
+      <p>At Pet Life, we believe every pet deserves the best care and every owner deserves peace of mind. That’s why we provide a unique digital ID, complete medical history tracking, and smart care tools— all in one place.</p>
+      <p>From vet visits, vaccination schedule to daily wellness, Pet Life helps you stay organized, informed, and connected to what matters most: your pet’s health and happiness. Get connected with other pet parents and communities for support and most importantly, play!</p>
     </div>
   </section>
 
@@ -1200,7 +1212,7 @@
           nav_mission: 'Misi & Visi',
           nav_services: 'Layanan',
           btn_my_pet_life: 'My Pet Life',
-          open_letter_title: 'Surat Terbuka untuk Hewan Peliharaan Kita',
+          open_letter_title: 'An Open Letter to Our Pets',
           read_more: 'Baca Selengkapnya',
           section_about: 'Tentang Kami',
           section_mission_vision: 'Misi & Visi',
@@ -1275,10 +1287,14 @@
           } else {
             letterBody.innerHTML = `
         <p><strong>Dear Pets,</strong></p>
-        <p>We built Pet Life because of you—your morning walks, the way you greet us at the door, the comfort you bring, the play, the love, the care, and the attention you give every day. You deserved a smarter, safer, and more connected way to be cared for.</p>
-        <p>That’s why we’re giving you something every pet should have: a true identity. A digital ID that protects you, helps reunite you with your family if you’re ever lost, and carries your story—vet visits, vaccinations, wellness—in one place, so nothing is scattered or forgotten.</p>
-        <p>We’re also here for the humans who love you. We want them to feel confident, supported, and informed so they can give you the best life possible. And we want to bring pet parents together, because the people who care for you deserve a community that understands.</p>
-        <p>Thank you for being part of our lives. This is for you.</p>
+        <p>You may not know this yet, but you’re the reason we’re building Pet Life.</p>
+        <p>You’re the early morning walks, the excited greetings at the door, the quiet comfort on hard days, and the endless reminders to play. You don’t ask for much — just love, care, and a little attention. We think you deserve more than that. You deserve the very best.</p>
+        <p>That’s why we’re creating a smarter, safer, more connected way to care for you — starting with something every pet deserves: a true identity.</p>
+        <p>At the heart of Pet Life is a digital ID made just for you. One that helps keep you protected, reunites you faster if you’re ever lost, and securely carries your medical history wherever life takes you. From vet visits and vaccinations to everyday wellness, your important information stays with you — not scattered across folders, clinics, or memories.</p>
+        <p>But Pet Life isn’t just about data and tools. It’s about connection. It’s about helping your humans feel confident, supported, and informed. It’s about bringing pet parents together into communities where they can share, learn, and remember to slow down and play.</p>
+        <p>We’re building this platform with you in mind — to give you the identification you deserve, to support healthier years, safer adventures, and more time doing what you love most.</p>
+        <p>Thank you for trusting us with your hearts, your homes, and your lives.<br/>We promise to keep building something worthy of you.</p>
+        <p>With love,<br/>Pet Life</p>
             `;
           }
         }
@@ -1293,8 +1309,8 @@
           } else {
             about.innerHTML = `
       <h2 class="section-title" style="text-align:left;" data-i18n="section_about">About Us</h2>
-      <p>Pet Life is a company built around one idea: giving every pet a healthier, happier life. We combine expertise in pet care with a deep commitment to quality and transparency.</p>
-      <p>From our beginnings to today, we have focused on products and services that meet the real needs of pets and their owners. We work with veterinarians, behaviourists, and caregivers to ensure our offerings are safe, effective, and easy to use.</p>
+      <p>At Pet Life, we believe every pet deserves the best care and every owner deserves peace of mind. That’s why we provide a unique digital ID, complete medical history tracking, and smart care tools— all in one place.</p>
+      <p>From vet visits, vaccination schedule to daily wellness, Pet Life helps you stay organized, informed, and connected to what matters most: your pet’s health and happiness. Get connected with other pet parents and communities for support and most importantly, play!</p>
             `;
           }
         }
