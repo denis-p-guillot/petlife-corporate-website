@@ -1126,30 +1126,8 @@
         </div>
         <div class="services-slide">
           <div class="services-slide-header">
-            <h3 class="services-slide-title">Marketplace</h3>
-          </div>
-          <div class="services-slide-cards cols-1">
-            <div class="service-slot-card">
-              <span class="service-pill">Pet Essentials</span><p>Your guided marketplace for everyday pet care. Explore trusted stores for pet food, toys, accessories, clothing and daily essentials.</p>
-            </div>
-          </div>
-        </div>
-        <div class="services-slide">
-          <div class="services-slide-header">
-            <h3 class="services-slide-title">Community &amp; Social Impact</h3>
-          </div>
-          <div class="services-slide-cards cols-2">
-            <div class="service-slot-card">
-              <span class="service-pill">Events &amp; Communities</span><p>Connects pet parents through events and social groups.</p>
-            </div>
-            <div class="service-slot-card">
-              <span class="service-pill">Pet Adoption</span><p>A guide on reliable communities and institutions to adopt and rehome pets.</p>
-            </div>
-          </div>
-        </div>
-        <div class="services-slide">
-          <div class="services-slide-header">
             <h3 class="services-slide-title">Care &amp; Professional Support</h3>
+            <span class="services-slide-badge">Coming Soon</span>
           </div>
           <div class="services-slide-cards cols-4">
             <div class="service-slot-card">
@@ -1163,6 +1141,31 @@
             </div>
             <div class="service-slot-card">
               <span class="service-pill">Pet Walking</span><p>A guide on reliable walking services for daily exercises and care.</p>
+            </div>
+          </div>
+        </div>
+        <div class="services-slide">
+          <div class="services-slide-header">
+            <h3 class="services-slide-title">Community &amp; Social Impact</h3>
+            <span class="services-slide-badge">Coming Soon</span>
+          </div>
+          <div class="services-slide-cards cols-2">
+            <div class="service-slot-card">
+              <span class="service-pill">Events &amp; Communities</span><p>Connects pet parents through events and social groups.</p>
+            </div>
+            <div class="service-slot-card">
+              <span class="service-pill">Pet Adoption</span><p>A guide on reliable communities and institutions to adopt and rehome pets.</p>
+            </div>
+          </div>
+        </div>
+        <div class="services-slide">
+          <div class="services-slide-header">
+            <h3 class="services-slide-title">Marketplace</h3>
+            <span class="services-slide-badge">Coming Soon</span>
+          </div>
+          <div class="services-slide-cards cols-1">
+            <div class="service-slot-card">
+              <span class="service-pill">Pet Essentials</span><p>Your guided marketplace for everyday pet care. Explore trusted stores for pet food, toys, accessories, clothing and daily essentials.</p>
             </div>
           </div>
         </div>
@@ -1449,28 +1452,40 @@
         if (servicesSlides.length >= 3) {
           var thirdSlide = servicesSlides[2];
           var slide3Title = thirdSlide.querySelector('.services-slide-title');
+          var slide3Badge = thirdSlide.querySelector('.services-slide-badge');
           var slide3Cards = thirdSlide.querySelectorAll('.service-slot-card');
-          if (slide3Title && slide3Cards.length >= 1) {
+          if (slide3Title && slide3Cards.length >= 4) {
             if (lang === 'id') {
-              slide3Title.textContent = 'Marketplace & Kebutuhan Harian';
-              slide3Cards[0].innerHTML = `<span class="service-pill">Pet Essentials</span><p>Marketplace pilihan Anda untuk kebutuhan perawatan hewan sehari-hari. Jelajahi toko tepercaya untuk makanan hewan, mainan, aksesori, pakaian, dan kebutuhan harian lainnya.</p>`;
+              slide3Title.textContent = 'Perawatan & Dukungan Profesional';
+              if (slide3Badge) slide3Badge.textContent = 'Segera Hadir';
+              slide3Cards[0].innerHTML = '<span class="service-pill">Direktori Klinik / Dokter</span><p>Cari dan temukan klinik serta layanan dokter hewan, sehingga lebih mudah mengakses perawatan yang tepercaya.</p>';
+              slide3Cards[1].innerHTML = '<span class="service-pill">Grooming</span><p>Panduan layanan grooming profesional untuk menjaga hewan peliharaan Anda tetap bersih dan sehat.</p>';
+              slide3Cards[2].innerHTML = '<span class="service-pill">Penitipan & Hotel Hewan</span><p>Panduan tempat menginap yang nyaman untuk hewan peliharaan Anda saat Anda bepergian.</p>';
+              slide3Cards[3].innerHTML = '<span class="service-pill">Jasa Jalan Hewan</span><p>Panduan layanan jalan hewan yang tepercaya untuk olahraga dan perawatan harian.</p>';
             } else {
-              slide3Title.textContent = 'Marketplace';
-              slide3Cards[0].innerHTML = `<span class="service-pill">Pet Essentials</span><p>Your guided marketplace for everyday pet care. Explore trusted stores for pet food, toys, accessories, clothing and daily essentials.</p>`;
+              slide3Title.textContent = 'Care & Professional Support';
+              if (slide3Badge) slide3Badge.textContent = 'Coming Soon';
+              slide3Cards[0].innerHTML = '<span class="service-pill">Pet Clinic / Vet Directory</span><p>Search and discover pet clinics and veterinary services, making it easier to access reliable care.</p>';
+              slide3Cards[1].innerHTML = '<span class="service-pill">Grooming</span><p>A guide on professional grooming services to keep your pets clean and healthy.</p>';
+              slide3Cards[2].innerHTML = '<span class="service-pill">Boarding & Hotel</span><p>A guide on comfortable stays for your pets while you are away.</p>';
+              slide3Cards[3].innerHTML = '<span class="service-pill">Pet Walking</span><p>A guide on reliable walking services for daily exercises and care.</p>';
             }
           }
         }
         if (servicesSlides.length >= 4) {
           var fourthSlide = servicesSlides[3];
           var slide4Title = fourthSlide.querySelector('.services-slide-title');
+          var slide4Badge = fourthSlide.querySelector('.services-slide-badge');
           var slide4Cards = fourthSlide.querySelectorAll('.service-slot-card');
           if (slide4Title && slide4Cards.length >= 2) {
             if (lang === 'id') {
               slide4Title.textContent = 'Komunitas & Dampak Sosial';
+              if (slide4Badge) slide4Badge.textContent = 'Segera Hadir';
               slide4Cards[0].innerHTML = '<span class="service-pill">Acara & Komunitas</span><p>Menghubungkan para pemilik hewan melalui acara dan kelompok sosial.</p>';
               slide4Cards[1].innerHTML = '<span class="service-pill">Adopsi Hewan</span><p>Panduan komunitas dan lembaga tepercaya untuk mengadopsi dan mencari rumah baru bagi hewan peliharaan.</p>';
             } else {
               slide4Title.textContent = 'Community & Social Impact';
+              if (slide4Badge) slide4Badge.textContent = 'Coming Soon';
               slide4Cards[0].innerHTML = '<span class="service-pill">Events &amp; Communities</span><p>Connects pet parents through events and social groups.</p>';
               slide4Cards[1].innerHTML = '<span class="service-pill">Pet Adoption</span><p>A guide on reliable communities and institutions to adopt and rehome pets.</p>';
             }
@@ -1479,20 +1494,17 @@
         if (servicesSlides.length >= 5) {
           var fifthSlide = servicesSlides[4];
           var slide5Title = fifthSlide.querySelector('.services-slide-title');
+          var slide5Badge = fifthSlide.querySelector('.services-slide-badge');
           var slide5Cards = fifthSlide.querySelectorAll('.service-slot-card');
-          if (slide5Title && slide5Cards.length >= 4) {
+          if (slide5Title && slide5Cards.length >= 1) {
             if (lang === 'id') {
-              slide5Title.textContent = 'Perawatan & Dukungan Profesional';
-              slide5Cards[0].innerHTML = '<span class="service-pill">Direktori Klinik / Dokter Hewan</span><p>Cari dan temukan klinik serta layanan dokter hewan, sehingga lebih mudah mengakses perawatan yang tepercaya.</p>';
-              slide5Cards[1].innerHTML = '<span class="service-pill">Grooming</span><p>Panduan layanan grooming profesional untuk menjaga hewan peliharaan Anda tetap bersih dan sehat.</p>';
-              slide5Cards[2].innerHTML = '<span class="service-pill">Penitipan & Hotel Hewan</span><p>Panduan tempat menginap yang nyaman untuk hewan peliharaan Anda saat Anda bepergian.</p>';
-              slide5Cards[3].innerHTML = '<span class="service-pill">Jasa Jalan Hewan</span><p>Panduan layanan jalan hewan yang tepercaya untuk olahraga dan perawatan harian.</p>';
+              slide5Title.textContent = 'Marketplace & Kebutuhan Harian';
+              if (slide5Badge) slide5Badge.textContent = 'Segera Hadir';
+              slide5Cards[0].innerHTML = `<span class="service-pill">Pet Essentials</span><p>Marketplace pilihan Anda untuk kebutuhan perawatan hewan sehari-hari. Jelajahi toko tepercaya untuk makanan hewan, mainan, aksesori, pakaian, dan kebutuhan harian lainnya.</p>`;
             } else {
-              slide5Title.textContent = 'Care & Professional Support';
-              slide5Cards[0].innerHTML = '<span class="service-pill">Pet Clinic / Vet Directory</span><p>Search and discover pet clinics and veterinary services, making it easier to access reliable care.</p>';
-              slide5Cards[1].innerHTML = '<span class="service-pill">Grooming</span><p>A guide on professional grooming services to keep your pets clean and healthy.</p>';
-              slide5Cards[2].innerHTML = '<span class="service-pill">Boarding & Hotel</span><p>A guide on comfortable stays for your pets while you are away.</p>';
-              slide5Cards[3].innerHTML = '<span class="service-pill">Pet Walking</span><p>A guide on reliable walking services for daily exercises and care.</p>';
+              slide5Title.textContent = 'Marketplace';
+              if (slide5Badge) slide5Badge.textContent = 'Coming Soon';
+              slide5Cards[0].innerHTML = `<span class="service-pill">Pet Essentials</span><p>Your guided marketplace for everyday pet care. Explore trusted stores for pet food, toys, accessories, clothing and daily essentials.</p>`;
             }
           }
         }
