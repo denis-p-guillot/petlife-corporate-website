@@ -1153,7 +1153,7 @@
           </div>
           <div class="services-slide-cards cols-4">
             <div class="service-slot-card">
-              <span class="service-pill">Pet Clinic / Veterinary Directory</span><p>Search and discover pet clinics and veterinary services, making it easier to access reliable care.</p>
+              <span class="service-pill">Pet Clinic / Vet Directory</span><p>Search and discover pet clinics and veterinary services, making it easier to access reliable care.</p>
             </div>
             <div class="service-slot-card">
               <span class="service-pill">Grooming</span><p>A guide on professional grooming services to keep your pets clean and healthy.</p>
@@ -1460,6 +1460,22 @@
             }
           }
         }
+        if (servicesSlides.length >= 4) {
+          var fourthSlide = servicesSlides[3];
+          var slide4Title = fourthSlide.querySelector('.services-slide-title');
+          var slide4Cards = fourthSlide.querySelectorAll('.service-slot-card');
+          if (slide4Title && slide4Cards.length >= 2) {
+            if (lang === 'id') {
+              slide4Title.textContent = 'Komunitas & Dampak Sosial';
+              slide4Cards[0].innerHTML = '<span class="service-pill">Acara & Komunitas</span><p>Menghubungkan para pemilik hewan melalui acara dan kelompok sosial.</p>';
+              slide4Cards[1].innerHTML = '<span class="service-pill">Adopsi Hewan</span><p>Panduan komunitas dan lembaga tepercaya untuk mengadopsi dan mencari rumah baru bagi hewan peliharaan.</p>';
+            } else {
+              slide4Title.textContent = 'Community & Social Impact';
+              slide4Cards[0].innerHTML = '<span class="service-pill">Events &amp; Communities</span><p>Connects pet parents through events and social groups.</p>';
+              slide4Cards[1].innerHTML = '<span class="service-pill">Pet Adoption</span><p>A guide on reliable communities and institutions to adopt and rehome pets.</p>';
+            }
+          }
+        }
         if (servicesSlides.length >= 5) {
           var fifthSlide = servicesSlides[4];
           var slide5Title = fifthSlide.querySelector('.services-slide-title');
@@ -1473,7 +1489,7 @@
               slide5Cards[3].innerHTML = '<span class="service-pill">Jasa Jalan Hewan</span><p>Panduan layanan jalan hewan yang tepercaya untuk olahraga dan perawatan harian.</p>';
             } else {
               slide5Title.textContent = 'Care & Professional Support';
-              slide5Cards[0].innerHTML = '<span class="service-pill">Pet Clinic / Veterinary Directory</span><p>Search and discover pet clinics and veterinary services, making it easier to access reliable care.</p>';
+              slide5Cards[0].innerHTML = '<span class="service-pill">Pet Clinic / Vet Directory</span><p>Search and discover pet clinics and veterinary services, making it easier to access reliable care.</p>';
               slide5Cards[1].innerHTML = '<span class="service-pill">Grooming</span><p>A guide on professional grooming services to keep your pets clean and healthy.</p>';
               slide5Cards[2].innerHTML = '<span class="service-pill">Boarding & Hotel</span><p>A guide on comfortable stays for your pets while you are away.</p>';
               slide5Cards[3].innerHTML = '<span class="service-pill">Pet Walking</span><p>A guide on reliable walking services for daily exercises and care.</p>';
