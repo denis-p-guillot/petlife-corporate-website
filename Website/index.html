@@ -332,6 +332,13 @@
       background: url("Company Profile Site Banner.jpg") center no-repeat;
       background-size: contain;
     }
+    @media (max-width: 768px) {
+      .welcome-banner {
+        background-image: url("petbanner-mobile.jpg");
+        background-size: cover;
+        background-position: center;
+      }
+    }
 
     /* ----- Open Letter Section (full page) ----- */
     .open-letter-section {
@@ -418,7 +425,15 @@
       box-shadow: 0 2px 8px rgba(116, 59, 25, 0.15);
     }
     .btn-read-more:hover { filter: brightness(1.08); }
-    .btn-read-more svg { width: 18px; height: 18px; }
+    .btn-read-more svg {
+      width: 18px;
+      height: 18px;
+      transition: transform 0.2s ease;
+      transform-origin: center;
+    }
+    .btn-read-more.is-expanded svg {
+      transform: rotate(180deg);
+    }
     .open-letter-cta { text-align: center; }
 
     /* ----- Section common ----- */
@@ -1542,6 +1557,7 @@
           openLetterSection.classList.toggle('is-collapsed', collapsed);
         }
         openLetterToggle.setAttribute('aria-expanded', (!collapsed).toString());
+        openLetterToggle.classList.toggle('is-expanded', !collapsed);
         var labelSpan = openLetterToggle.querySelector('[data-i18n="read_more"]');
         if (labelSpan) {
           labelSpan.textContent = collapsed ? t('read_more') : t('read_less');
