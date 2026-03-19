@@ -35,6 +35,7 @@
     html {
       scroll-behavior: smooth;
       overflow-x: hidden;
+      height: 100%;
     }
     body {
       font-family: var(--font-body);
@@ -43,6 +44,15 @@
       line-height: 1.6;
       overflow-x: hidden;
       -webkit-text-size-adjust: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    main {
+      flex: 1 0 auto;
+    }
+    footer {
+      flex-shrink: 0;
     }
     h1, h2, h3, h4, h5, h6,
     .section-title,
@@ -955,8 +965,16 @@
     @media (max-width: 768px) {
       .footer-inner { grid-template-columns: 1fr; text-align: center; }
       .footer-brand .logo-link { justify-content: center; }
-      .footer-contact-block { max-width: none; margin: 0 auto; grid-template-columns: 1fr; text-align: left; }
+      .footer-contact-block {
+        width: 80%;
+        max-width: 80%;
+        margin: 0 auto;
+        grid-template-columns: 1fr;
+        text-align: left;
+      }
       .footer-social { justify-content: flex-start; }
+      .footer-contact-block { order: 1; }
+      .footer-brand { order: 2; }
     }
 
     /* ===== Responsive: tablet and below ===== */
