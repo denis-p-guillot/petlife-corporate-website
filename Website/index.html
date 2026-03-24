@@ -702,7 +702,11 @@
     .services-arrow.next { right: -0.75rem; }
     .services-arrow svg { width: 22px; height: 22px; }
     @media (max-width: 768px) {
-      .services-slide { padding: 1.5rem 1rem; margin: 0 0.2rem; border-radius: 20px; }
+      .services-section {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+      }
+      .services-slide { padding: 1.5rem 0.75rem; margin: 0 0.15rem; border-radius: 20px; }
       .services-slide-cards.cols-2,
       .services-slide-cards.cols-3,
       .services-slide-cards.cols-4 { grid-template-columns: 1fr; }
@@ -713,9 +717,44 @@
       .services-slide-cards.cols-3 .service-slot-card:last-child,
       .services-slide-cards.cols-4 .service-slot-card:last-child { border-radius: 0 0 14px 14px; }
       .services-slide-cards .service-slot-card:nth-child(n+2) { border-radius: 0; }
-      .services-slider-wrap { padding: 0 3rem; }
-      .services-arrow { width: 42px; height: 42px; left: 0.5rem; }
-      .services-arrow.next { right: 0.5rem; }
+      /* Prev | track | next — arrows flank the slider (DOM: prev, next, track, nav).
+         Nav must sit on row 2 (order 4); default order 0 would put dots before the track. */
+      .services-slider-wrap {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        align-content: center;
+        gap: 0.5rem;
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 0;
+      }
+      .services-arrow {
+        position: relative;
+        top: auto;
+        left: auto !important;
+        right: auto !important;
+        transform: none;
+        flex-shrink: 0;
+        width: 40px;
+        height: 40px;
+      }
+      .services-arrow.prev { order: 1; }
+      .services-track {
+        order: 2;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+      .services-arrow.next { order: 3; }
+      .services-nav {
+        order: 4;
+        flex-basis: 100%;
+        width: 100%;
+        margin-top: 0.75rem;
+        justify-content: center;
+      }
     }
 
     /* ----- Contact (full page, Get in Touch with Us) ----- */
@@ -1051,7 +1090,16 @@
       .contact-section { padding: 1.5rem 0.75rem; }
       .open-letter-inner { max-width: 100%; }
       .mission-vision-card { padding: 1.25rem; }
-      .services-section .services-slide { padding: 1.25rem 0.75rem; }
+      .services-section {
+        padding-left: 0.35rem;
+        padding-right: 0.35rem;
+      }
+      .services-section .services-slide { padding: 1.25rem 0.65rem; }
+      .services-slider-wrap {
+        width: 100%;
+        max-width: 100%;
+        gap: 0.35rem;
+      }
       .footer-inner { gap: 1.5rem; }
       .btn-read-more { padding: 0.75rem 1.25rem; width: 100%; max-width: 280px; }
     }
